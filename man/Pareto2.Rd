@@ -1,0 +1,55 @@
+\name{rpareto2}
+\alias{dpareto2}
+\alias{ppareto2}
+\alias{qpareto2}
+\alias{rpareto2}
+\title{Pareto Type-II (Lomax) Distribution}
+\usage{
+  rpareto2(n, k = 1, s = 1)
+
+  ppareto2(q, k = 1, s = 1, lower.tail = TRUE)
+
+  qpareto2(p, k = 1, s = 1, lower.tail = TRUE)
+
+  dpareto2(x, k = 1, s = 1)
+}
+\arguments{
+  \item{x,q}{vector of quantiles}
+
+  \item{p}{vector of probabilities}
+
+  \item{n}{integer; number of observations}
+
+  \item{k}{vector of shape parameters, \eqn{k>0}}
+
+  \item{s}{vector of scale parameters, \eqn{s>0}}
+
+  \item{lower.tail}{logical; if \code{TRUE} (default),
+  probabilities are \eqn{P(X \le x)}, and \eqn{P(X > x)}
+  otherwise}
+}
+\value{
+  numeric vector; \code{dpareto2} gives the density,
+  \code{ppareto2} gives the cumulative distribution
+  function, \code{qpareto2} calculates the quantile
+  function, and \code{rpareto2} generates random deviates.
+}
+\description{
+  Density, cumulative distribution function, quantile
+  function, and random generation for the Pareto Type-II
+  (Lomax) distribution with shape parameter \eqn{k>0} and
+  scale parameter \eqn{s>0}.
+}
+\details{
+  If \eqn{X\sim\mathrm{P2}(k,s)}{X~P2(k,s)}, then
+  \eqn{\mathrm{supp}\,X=[0,\infty)}{supp X=[0,\infty)}. The
+  c.d.f. for \eqn{x\ge 0} is given by
+  \deqn{F(x)=1-s^k/(s+x)^k} and the density by \deqn{f(x)=k
+  s^k/(s+x)^{k+1}.}
+}
+\seealso{
+  Other Pareto2: \code{\link{pareto2_estimate_mle}},
+  \code{\link{pareto2_estimate_mmse}},
+  \code{\link{pareto2_test_f}}
+}
+

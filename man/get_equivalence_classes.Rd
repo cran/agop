@@ -1,0 +1,31 @@
+\name{get_equivalence_classes}
+\alias{get_equivalence_classes}
+\title{Get All Equivalence Classes of a Total Binary Relation}
+\usage{
+  get_equivalence_classes(B)
+}
+\arguments{
+  \item{B}{object of class \code{igraph} or a square 0-1
+  matrix of class \code{Matrix} or \code{matrix}}
+}
+\value{
+  list of integer vectors; each list element defines an
+  equivalence class by listing vertices' numbers; each
+  vector is ordered by the outdegrees of their nodes (they
+  are the same in each class)
+}
+\description{
+  Note that we assume that \eqn{B} is total, reflexive and
+  transitive.
+}
+\seealso{
+  Other binary_relations: \code{\link{closure_total_fair}},
+  \code{\link{closure_transitive}},
+  \code{\link{de_transitive}},
+  \code{\link{get_incomparable_pairs}},
+  \code{\link{get_independent_sets}},
+  \code{\link{is_reflexive}}, \code{\link{is_total}},
+  \code{\link{is_transitive}}, \code{\link{pord_weakdom}},
+  \code{\link{rel_graph}}
+}
+

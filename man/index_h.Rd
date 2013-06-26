@@ -1,0 +1,58 @@
+\name{index_h}
+\alias{index_h}
+\alias{index.h}
+\title{Hirsch's h-index}
+\usage{
+  index_h(x)
+
+  index.h(x) # same as index_h(x), deprecated alias
+}
+\arguments{
+  \item{x}{a non-negative numeric vector}
+}
+\value{
+  a single numeric value
+}
+\description{
+  Given a sequence of \eqn{n} non-negative numbers
+  \eqn{x=(x_1,\dots,x_n)}, where \eqn{x_i \ge x_j \ge 0}
+  for \eqn{i \le j}, the \dfn{\eqn{h}-index} (Hirsch, 2005)
+  for \eqn{x} is defined as \deqn{H(x)=\max\{i=1,\dots,n:
+  x_i \ge i\}}{H(x)=max{i=1,\dots,n: x_i \ge i}} if \eqn{n
+  \ge 1} and \eqn{x_1 \ge 1}, or \eqn{H(x)=0} otherwise.
+}
+\details{
+  If non-increasingly sorted vector is given, the function
+  is O(n).
+
+  For historical reasons, this function is also available
+  via its alias, \code{index.h} [but its usage is
+  deprecated].
+
+  See \code{\link{index_rp}} and \code{\link{owmax}} for
+  natural generalizations.
+}
+\examples{
+authors <- list(  # a list of numeric sequences
+                  # (e.g. citation counts of the articles
+                  # written by some authors)
+    "A" =c(23,21,4,2,1,0,0),
+    "B" =c(11,5,4,4,3,2,2,2,2,2,1,1,1,0,0,0,0),
+    "C" =c(53,43,32,23,14,13,12,8,4,3,2,1,0)
+ )
+index_h(authors$A)
+sapply(authors, index_h)
+}
+\references{
+  Hirsch J.E., An index to quantify individual's scientific
+  research output, Proceedings of the National Academy of
+  Sciences 102(46), 16569-16572, 2005.\cr
+}
+\seealso{
+  Other impact_functions: \code{\link{index_g}},
+  \code{\link{index_g_zi}}, \code{\link{index_lp}},
+  \code{\link{index_maxprod}}, \code{\link{index_rp}},
+  \code{\link{index_w}}, \code{\link{index.g}},
+  \code{\link{index.lp}}, \code{\link{index.rp}}
+}
+

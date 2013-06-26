@@ -1,0 +1,34 @@
+\name{pord_weakdom}
+\alias{pord_weakdom}
+\title{Weak Dominance Relation (Preorder)}
+\usage{
+  pord_weakdom(x, y)
+}
+\arguments{
+  \item{x}{numeric vector}
+
+  \item{y}{numeric vector}
+}
+\value{
+  single logical value; whether x <= y
+}
+\description{
+  \eqn{x <= y} iff \eqn{nx <= ny} AND for all \eqn{i =
+  1,...,n} \eqn{x_{(n-i+1)} <= y_{(m-i+1)}}, where \eqn{nx
+  = length(x)} and \eqn{ny = length(y)}.
+}
+\details{
+  This function accepts only vectors with nonnegative
+  elements.
+}
+\seealso{
+  Other binary_relations: \code{\link{closure_total_fair}},
+  \code{\link{closure_transitive}},
+  \code{\link{de_transitive}},
+  \code{\link{get_equivalence_classes}},
+  \code{\link{get_incomparable_pairs}},
+  \code{\link{get_independent_sets}},
+  \code{\link{is_reflexive}}, \code{\link{is_total}},
+  \code{\link{is_transitive}}, \code{\link{rel_graph}}
+}
+
