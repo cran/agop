@@ -1,6 +1,6 @@
-0100ecb1f90b4b81e73ad0956acc4240 *DESCRIPTION
+7d0d4528b8a94509796e08ab7836826f *DESCRIPTION
 4f5d1e5355fa996c845d29f9814402a3 *NAMESPACE
-1a39e00fe9b60efbf18914c9fc601ccd *NEWS
+90973521de3ace2580c3c0e6c830bad1 *NEWS
 937f15a930eae6a5be1c544f0d5da837 *R/agop-package.R
 6cca76d187f21c584116a0a84c5370dd *R/agops-classical.R
 bb93948fddfc1401acc2ccbbaaac25b8 *R/agops-impact.R
@@ -11,7 +11,7 @@ a1ded1ca5b8405fb0ae7794beb73c292 *R/preorders.R
 707099dfebce15c658ff495bd2408691 *R/visualization.R
 3e806c004e845860428397378b560be1 *inst/CITATION
 1c93e4ee0eaaabee9a7c4de33ca576d2 *inst/doc/agop-Tutorial.Rnw
-e578ac49faf4f5db6b98856bf925dd00 *inst/doc/agop-Tutorial.pdf
+32ab019abaa404de7f421e0c97bf095c *inst/doc/agop-Tutorial.pdf
 42f879a683389d08a7956552b149b67a *inst/tests/run_package_test.R
 bf0674746acdb2499a70dbe5d242f247 *inst/tests/test-fuzzy.integrals.R
 21384084e8671f65438da27f59b9855b *inst/tests/test-index_g.R
@@ -50,8 +50,8 @@ b13bf36693dbc973a4c05514304826f0 *man/plot_producer.Rd
 b9b873c8c870eb308275d9f9df17d1f6 *man/pord_weakdom.Rd
 2e97ad46990626b9e9d9083b26235da1 *man/rel_graph.Rd
 7760507be8e4a698b51878d888c64f51 *src/agop.cpp
-149d6a8fdc0740dba29bc29eb21b395a *src/agop.h
-90964ac5cfb7115ce9bd912eeaad0b44 *src/agops_classical.cpp
-6448939cfb7cbf1ae0f8c525146bc151 *src/agops_impact.cpp
-15b44bbdd7557089abd63e15216ca4ba *src/preorders.cpp
-b07bcd63c421033565e43feceead64b5 *src/prepare_arg.cpp
+ffb92b358b8c79bf39d7d2b07e849544 *src/agop.h
+2d6e8704110440060fa73d633df22651 *src/agops_classical.cpp
+4a9741d43bfb790807a4cfc6e14326ba *src/agops_impact.cpp
+a8e326aedf215391b34a05f38e66d3d3 *src/preorders.cpp
+42e523e553b16aac2d6bcbbac63d6249 *src/prepare_arg.cpp
