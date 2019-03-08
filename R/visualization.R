@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013 Marek Gagolewski, Anna Cena
+## Copyright 2013-2014 Marek Gagolewski, Anna Cena
 ##
 ## Parts of the code are taken from the 'CITAN' R package by Marek Gagolewski
 ##
@@ -23,8 +23,8 @@
 #'
 #' @description
 #' Draws a step function that represents given numeric vector
-#' with elements in \eqn{[0,\infty]}.
-#' 
+#' with elements in \eqn{[a,\infty]}.
+#'
 #' @details
 #' In \pkg{agop}, a given vector \eqn{x=(x_1,\dots,x_n)} can be represented by a
 #' step function defined for \eqn{0\le y<n} and given by:
@@ -37,10 +37,10 @@
 #' ..., \eqn{(n, x_{(1)})}.
 #' Here, \eqn{x_{(i)}} denotes the
 #' \eqn{i}-th smallest value in \eqn{x}.
-#' 
+#'
 #' In bibliometrics, a step function of one of the two above-presented types
 #' is called a citation function.
-#' 
+#'
 #' For historical reasons, this function is also available via its alias,
 #' \code{plot.citfun} [but its usage is deprecated].
 #'
@@ -56,9 +56,10 @@
 #' for \code{type} of \code{'left.continuous'} and \code{'right.continuous'} only
 #' @param ylim,xlim,xlab,ylab,main,... additional graphical parameters,
 #' see \code{\link{plot.default}}
+#' @param a single numeric value
 #' @return
 #' nothing interesting
-#' 
+#'
 #' @examples
 #' john_s <- c(11,5,4,4,3,2,2,2,2,2,1,1,1,0,0,0,0)
 #' plot_producer(john_s, main="Smith, John", col="red")
@@ -73,51 +74,52 @@ plot_producer <- function(x,
    pch=1, col=1, lty=1, lwd=1, cex=1,
    col.steps=col, lty.steps=2, lwd.steps=1,
    xlab="", ylab="", main="",
-   xmarg=10, xlim=c(0,length(x)*1.2), ylim=c(0, max(x)), 
+   xmarg=10, xlim=c(0,length(x)*1.2), ylim=c(a, max(x)), a=0.0,
    ...)
 {
-   stopifnot(length(x) > 0, is.numeric(x), all(x >= 0))
+   stopifnot(is.numeric(a), length(a) == 1, is.finite(a))
+   stopifnot(length(x) > 0, is.numeric(x), all(x >= a))
    n <- length(x)
-   x <- sort(x, decreasing=T)
-   
+   x <- sort(x, decreasing=TRUE)
+
    type <- match.arg(type)
    extend <- identical(extend, TRUE)
    add <- identical(add, TRUE)
-   
+
    if (!add) {
       # start a new plot
       plot(NA, NA, ylim=ylim, xlim=xlim,
          xlab=xlab, ylab=ylab, main=main, ...)
    }
-   
-   
+
+
    # look for unique values
-   wdx <- which(diff(x) != 0) 
+   wdx <- which(diff(x) != 0)
    px <- c(wdx, n)
    py <- c(x[wdx], x[n])
-   
+
    if (extend) {
       if (py[length(py)] == 0) {
          px[length(px)] <- par("usr")[2]+1 # +1 == magic constant :-)
       }
       else {
          px <- c(px, par("usr")[2]+1)
-         py <- c(py, 0)
+         py <- c(py, a)
       }
    }
-   
+
    segments(c(0, px[-length(px)]), py, px, py,
       col=col, pch=pch, lty=lty, lwd=lwd, cex=cex, ...)
 
    if (type == 'right.continuous') {
-      points(px, py, 
+      points(px, py,
          col=col, pch=pch, lty=lty, lwd=lwd, cex=cex, ...)
    }
    else if (type == 'left.continuous') {
-      points(c(0, px[-length(px)]), py, 
+      points(c(0, px[-length(px)]), py,
          col=col, pch=pch, lty=lty, lwd=lwd, cex=cex, ...)
    }
-   
+
    if (type == 'curve') {
       segments(px[-length(px)], py[-length(px)], px[-length(px)], py[-1],
          col=col, lty=lty, lwd=lwd, ...)
@@ -166,10 +168,10 @@ plot.citfun <- plot_producer # deprecated
 # {
 #    if (length(p) != 1 || mode(p) != "numeric") stop("p must be a single numeric value");
 #    if (p < 1) stop("p must be >= 1");
-# 
+#
 #    if (length(r) != 1 || mode(r) != "numeric") stop("r must be a single numeric value");
 #    if (r <= 0) stop("r must be > 0");
-# 
+#
 #    if (is.finite(p))
 #    {
 #       px <- seq(0,r,length=n);
@@ -207,13 +209,13 @@ plot.citfun <- plot_producer # deprecated
 # {
 #    if (length(p) != 1 || mode(p) != "numeric") stop("p must be a single numeric value");
 #    if (p < 1) stop("p must be >= 1");
-# 
+#
 #    if (length(ab) != 2 || mode(ab) != "numeric") stop("ab must be a numeric vector of length 2");
 #    if (any(ab <= 0)) stop("ab must be > 0");
-# 
+#
 #    a <- ab[1];
 #    b <- ab[2];
-# 
+#
 #    if (is.finite(p))
 #    {
 #       px <- seq(0,a,length=n);

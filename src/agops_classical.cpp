@@ -1,7 +1,7 @@
 /* ************************************************************************* *
  *   This file is part of the `agop` library.                                *
  *                                                                           *
- *   Copyright 2013 Marek Gagolewski, Anna Cena                              *                                                                      *
+ *   Copyright 2013-2019 Marek Gagolewski, Anna Cena                         *
  *                                                                           *
  *   'agop' is free software: you can redistribute it and/or modify          *
  *   it under the terms of the GNU Lesser General Public License             *
@@ -26,28 +26,28 @@
 
 
 /** OWA operator
- * 
+ *
  * @param x numeric
  * @param w numeric
  * @return numeric of length 1
  */
 SEXP owa(SEXP x, SEXP w)
 {
-   x = prepare_arg_numeric_sorted(x, "x");
+   x = prepare_arg_numeric_sorted_inc(x, "x");
    return wam(x, w);
 }
 
 
 
 /** OWMax operator
- * 
+ *
  * @param x numeric
  * @param w numeric
  * @return numeric of length 1
  */
 SEXP owmax(SEXP x, SEXP w)
 {
-   x = prepare_arg_numeric_sorted(x, "x");
+   x = prepare_arg_numeric_sorted_inc(x, "x");
    return wmax(x, w);
 }
 
@@ -55,14 +55,14 @@ SEXP owmax(SEXP x, SEXP w)
 
 
 /** OWMin operator
- * 
+ *
  * @param x numeric
  * @param w numeric
  * @return numeric of length 1
  */
 SEXP owmin(SEXP x, SEXP w)
 {
-   x = prepare_arg_numeric_sorted(x, "x");
+   x = prepare_arg_numeric_sorted_inc(x, "x");
    return wmin(x, w);
 }
 
@@ -70,7 +70,7 @@ SEXP owmin(SEXP x, SEXP w)
 
 
 /** WAM operator
- * 
+ *
  * @param x numeric
  * @param w numeric
  * @return numeric of length 1
@@ -79,31 +79,33 @@ SEXP wam(SEXP x, SEXP w)
 {
    x = prepare_arg_numeric(x, "x");
    w = prepare_arg_numeric(w, "w");
-   
+
    R_len_t x_length = LENGTH(x);
    R_len_t w_length = LENGTH(w);
    double* w_tab = REAL(w);
    double* x_tab = REAL(x);
-   
-   if (x_length <= 0) return x;
+
+   if (w_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "w");
+   if (x_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
+
    if (ISNA(w_tab[0]) || ISNA(x_tab[0]))
       return Rf_ScalarReal(NA_REAL);
    if (x_length != w_length)
-      Rf_error("`x` and `w` should have the same length");
-   
+      Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "w");
+
 
    double w_sum = 0.0;
    double ret_val = 0.0;
    for (R_len_t i=0; i<x_length; ++i) {
       if (w_tab[i] < 0)
-         Rf_error("elements in `w` should be nonnegative");
+         Rf_error(MSG__ARG_NOT_GE_A, "w", 0.0);
       w_sum = w_sum + w_tab[i];
       ret_val += w_tab[i]*x_tab[i];
    }
-   
+
    if (w_sum > 1.0+EPS || w_sum < 1.0-EPS)
       Rf_warning("elements of `w` does not sum up to 1. correcting.");
-      
+
    ret_val /= w_sum;
    return Rf_ScalarReal(ret_val);
 }
@@ -111,7 +113,7 @@ SEXP wam(SEXP x, SEXP w)
 
 
 /** WMax operator
- * 
+ *
  * @param x numeric
  * @param w numeric
  * @return numeric of length 1
@@ -120,31 +122,33 @@ SEXP wmax(SEXP x, SEXP w)
 {
    x = prepare_arg_numeric(x, "x");
    w = prepare_arg_numeric(w, "w");
-   
+
    R_len_t x_length = LENGTH(x);
    R_len_t w_length = LENGTH(w);
    double* w_tab = REAL(w);
    double* x_tab = REAL(x);
-   
-   if (x_length <= 0) return x;
+
+   if (w_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "w");
+   if (x_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
+
    if (ISNA(w_tab[0]) || ISNA(x_tab[0]))
       return Rf_ScalarReal(NA_REAL);
    if (x_length != w_length)
-      Rf_error("`x` and `w` should have the same length");
-   
+      Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "w");
+
    double ret_val = DBL_MIN;
    for (R_len_t i=0; i<x_length; ++i) {
       double tmp = min(w_tab[i], x_tab[i]);
       if (ret_val < tmp) ret_val = tmp;
    }
-   
+
    return Rf_ScalarReal(ret_val);
 }
 
 
 
 /** WMin operator
- * 
+ *
  * @param x numeric
  * @param w numeric
  * @return numeric of length 1
@@ -153,24 +157,26 @@ SEXP wmin(SEXP x, SEXP w)
 {
    x = prepare_arg_numeric(x, "x");
    w = prepare_arg_numeric(w, "w");
-   
+
    R_len_t x_length = LENGTH(x);
    R_len_t w_length = LENGTH(w);
    double* w_tab = REAL(w);
    double* x_tab = REAL(x);
-   
-   if (x_length <= 0) return x;
+
+   if (w_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "w");
+   if (x_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
+
    if (ISNA(w_tab[0]) || ISNA(x_tab[0]))
       return Rf_ScalarReal(NA_REAL);
    if (x_length != w_length)
-      Rf_error("`x` and `w` should have the same length");
-   
+      Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "w");
+
    double ret_val = DBL_MAX;
    for (R_len_t i=0; i<x_length; ++i) {
       double tmp = max(w_tab[i], x_tab[i]);
       if (ret_val > tmp) ret_val = tmp;
    }
-   
+
    return Rf_ScalarReal(ret_val);
 }
 
@@ -223,33 +229,25 @@ SEXP wmin(SEXP x, SEXP w)
 /*
 void Sstat2(double* x, int* n, double* out) -- OFTEN SLOWER THAN THE ABOVE
 {
-	int i = 0;
-	int k = *n;
-	double d = 1.0/(double)k;
+   int i = 0;
+   int k = *n;
+   double d = 1.0/(double)k;
 
-	while (i<k)
-	{
-		if (x[i] < d)
-		{
-			if (x[i] >= (double)i/(double)k)
-				*out = x[i];
-			else
-				*out = (double)i/(double)k;
-			return;
-		}
-		++i;
-		d = (double)(i+1)/(double)k;
-	}
+   while (i<k)
+   {
+   	if (x[i] < d)
+   	{
+   		if (x[i] >= (double)i/(double)k)
+   			*out = x[i];
+   		else
+   			*out = (double)i/(double)k;
+   		return;
+   	}
+   	++i;
+   	d = (double)(i+1)/(double)k;
+   }
 
-	// i == k
-	*out = x[k-1];
+   // i == k
+   *out = x[k-1];
 }
 */
-
-
-
-
-
-
-
-

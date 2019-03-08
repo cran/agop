@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013 Marek Gagolewski, Anna Cena
+## Copyright 2013-2019 Marek Gagolewski, Anna Cena
 ##
 ## Parts of the code are taken from the 'CITAN' R package by Marek Gagolewski
 ##
@@ -29,20 +29,41 @@
 #'
 #' @details
 #' If non-increasingly sorted vector is given, the function is O(n).
-#' 
+#'
 #' For historical reasons, this function is also available via its alias,
 #' \code{index.h} [but its usage is deprecated].
-#' 
+#'
 #' See \code{\link{index_rp}} and \code{\link{owmax}} for natural generalizations.
-#' 
+#'
+#' The h-index is the same as the discrete Sugeno integral of \code{x}
+#' w.r.t. the counting measure (see Torra, Narukawa, 2008).
+#'
 #' @param x a non-negative numeric vector
 #' @return a single numeric value
-#' 
-#' @references
-#' Hirsch J.E., An index to quantify individual's scientific research output, 
-#' Proceedings of the National Academy of Sciences 102(46), 16569-16572, 2005.\cr
 #'
-#' 
+#' @references
+#' Hirsch J.E., An index to quantify individual's scientific research output,
+#' \emph{Proceedings of the National Academy of Sciences} 102(46), 2005, pp. 16569-16572.
+#'
+#' Mesiar R., Gagolewski M., H-index and other Sugeno integrals:
+#'    Some defects and their compensation,
+#'  IEEE Transactions on Fuzzy Systems 24(6), 2016, pp. 1668-1672.
+#' doi:10.1109/TFUZZ.2016.2516579
+#'
+#' Gagolewski M., Mesiar R., Monotone measures and universal integrals
+#'   in a uniform framework for the scientific impact assessment problem,
+#'   Information Sciences 263, 2014, pp. 166-174. doi:10.1016/j.ins.2013.12.004
+#'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
+#'
+#' Sugeno M., \emph{Theory of fuzzy integrals and its applications},
+#'    PhD thesis, Tokyo Institute of Technology, 1974.
+#'
+#' Torra V., Narukawa Y., The h-index and the number of citations: Two fuzzy
+#' integrals, \emph{IEEE Transactions on Fuzzy Systems} 16(3), 2008, pp. 795-797.
+#'
 #' @examples
 #' authors <- list(  # a list of numeric sequences
 #'                   # (e.g. citation counts of the articles
@@ -53,7 +74,7 @@
 #'  )
 #' index_h(authors$A)
 #' sapply(authors, index_h)
-#' 
+#'
 #' @family impact_functions
 #' @rdname index_h
 #' @export
@@ -84,31 +105,41 @@ index.h <- index_h # deprecated
 #'
 #' @details
 #' \code{index.g} is a (deprecated) alias for \code{index_g}.
-#' 
+#'
 #' Note that \code{index_g} is not a zero-insensitive impact function,
 #' see Examples section. \code{index_g_zi} is its zero-sensitive variant:
 #' it assumes that the aggregated vector is padded with zeros.
-#' 
-#' The h-index is the same as the discrete Sugeno integral of \code{x}
-#' w.r.t. the counting measure (cf. Torra, Narukawa, 2008).
-#' 
+#'
 #' If non-increasingly sorted vector is given, the function is O(n).
-#' 
+#'
 #' For historical reasons, this function is also available via its alias,
-#' \code{index.h} [but its usage is deprecated].
-#' 
-#' 
+#' \code{index.g} [but its usage is deprecated].
+#'
+#'
 #' @param x a non-negative numeric vector
 #' @return a single numeric value
-#' 
+#'
 #' @references
-#' Egghe L., Theory and practise of the g-index, Scientometrics 69(1), 131-152, 2006.\cr
-#' Torra V., Narukawa Y., The h-index and the number of citations: Two fuzzy
-#' integrals. IEEE Transactions on Fuzzy Systems 16(3), 2008, 795-797.\cr
-#' 
+#' Egghe L., Theory and practise of the g-index,
+#' \emph{Scientometrics} 69(1), 2006, pp. 131-152.
+#'
+#' Mesiar R., Gagolewski M., H-index and other Sugeno integrals:
+#'    Some defects and their compensation,
+#'  IEEE Transactions on Fuzzy Systems 24(6), 2016, pp. 1668-1672.
+#' doi:10.1109/TFUZZ.2016.2516579
+#'
+#' Gagolewski M., Mesiar R., Monotone measures and universal integrals
+#'   in a uniform framework for the scientific impact assessment problem,
+#'   Information Sciences 263, 2014, pp. 166-174. doi:10.1016/j.ins.2013.12.004
+#'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
+#'
+#'
 #' @examples
 #' sapply(list(c(9), c(9,0), c(9,0,0), c(9,0,0,0)), index_g) # not a zero-sensitive agop
-#' 
+#'
 #' @family impact_functions
 #' @rdname index_g
 #' @export
@@ -143,20 +174,34 @@ index_g_zi <- function(x)
 #'
 #' @details
 #' If non-increasingly sorted vector is given, the function is O(n).
-#' 
+#'
 #' MAXPROD index is the same as the discrete Shilkret integral of \code{x}
 #' w.r.t. the counting measure.
-#' 
+#'
 #' See \code{\link{index_lp}} for a natural generalization.
-#' 
+#'
 #' @param x a non-negative numeric vector
 #' @return a single numeric value
-#' 
+#'
 #' @references
 #' Kosmulski M., MAXPROD - A new index for assessment of the scientific output
-#' of an individual, and a comparison with the h-index, Cybermetrics 11(1), 2007.
+#' of an individual, and a comparison with the h-index,
+#' \emph{Cybermetrics} 11(1), 2007.
 #'
-#' 
+#' Mesiar R., Gagolewski M., H-index and other Sugeno integrals:
+#'    Some defects and their compensation,
+#'  IEEE Transactions on Fuzzy Systems 24(6), 2016, pp. 1668-1672.
+#' doi:10.1109/TFUZZ.2016.2516579
+#'
+#' Gagolewski M., Mesiar R., Monotone measures and universal integrals
+#'   in a uniform framework for the scientific impact assessment problem,
+#'   Information Sciences 263, 2014, pp. 166-174. doi:10.1016/j.ins.2013.12.004
+#'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
+#'
+#'
 #' @family impact_functions
 #' @rdname index_maxprod
 #' @export
@@ -178,17 +223,17 @@ index_maxprod <- function(x)
 #'
 #' @details
 #' If non-increasingly sorted vector is given, the function is O(n).
-#' 
+#'
 #' See \code{\link{index_rp}} for a natural generalization.
-#' 
+#'
 #' @param x a non-negative numeric vector
 #' @return a single numeric value
-#' 
+#'
 #' @references
 #' Woeginger G. J., An axiomatic characterization of the Hirsch-index.
-#' Mathematical Social Sciences 56(2), 2008, 224-232.
+#' \emph{Mathematical Social Sciences} 56(2), 2008, pp. 224-232.
 #'
-#' 
+#'
 #' @family impact_functions
 #' @rdname index_w
 #' @export
@@ -210,7 +255,7 @@ index_w <- function(x)
 #' if \eqn{n \ge 1}, or \eqn{r_\infty(x)=0} otherwise.
 #' That is, it is equivalent to a particular OWMax operator,
 #' see \code{\link{owmax}}.
-#' 
+#'
 #' For the definition of the \eqn{r_p}-index for \eqn{p < \infty} we refer
 #' to (Gagolewski, Grzegorzewski, 2009).
 #'
@@ -219,19 +264,21 @@ index_w <- function(x)
 #' \deqn{r_\infty(x)=H(x),} where \eqn{H} is the \eqn{h}-index (Hirsch, 2005) and
 #' \deqn{r_1(x)=W(x),} where \eqn{W} is the \eqn{w}-index (Woeginger, 2008),
 #' see \code{\link{index_h}} and \code{\link{index_w}}.
-#' 
+#'
 #' If non-increasingly sorted vector is given, the function is O(n).
-#' 
+#'
 #' For historical reasons, this function is also available via its alias, \code{index.rp}
 #'  [but its usage is deprecated].
 #'
 #' @references
-#' Gagolewski M., Grzegorzewski P., A geometric approach to the construction 
-#' of scientific impact indices, Scientometrics, 81(3), 2009, pp. 617-634.\cr
-#' Hirsch J.E., An index to quantify individual's scientific research output, 
-#' Proceedings of the National Academy of Sciences 102(46), 16569-16572, 2005.\cr
-#' Woeginger G.J., An axiomatic characterization of the Hirsch-index, 
-#' Mathematical Social Sciences, 56(2), 224-232, 2008.\cr
+#' Gagolewski M., Grzegorzewski P., A geometric approach to the construction
+#' of scientific impact indices, \emph{Scientometrics} 81(3), 2009, pp. 617-634.
+#'
+#' Hirsch J.E., An index to quantify individual's scientific research output,
+#' \emph{Proceedings of the National Academy of Sciences} 102(46), 2005, pp. 16569-16572.
+#'
+#' Woeginger G.J., An axiomatic characterization of the Hirsch-index,
+#' \emph{Mathematical Social Sciences} 56(2), 2008, pp. 224-232.
 #'
 #' @param x a non-negative numeric vector
 #' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).
@@ -271,9 +318,12 @@ index.rp <- index_rp # deprecated
 #' if \eqn{n \ge 1}, or \eqn{l_\infty(x)=0} otherwise.
 #' Note that if \eqn{(i,x_i)=l_\infty(x)}, then
 #' \deqn{MAXPROD(x) = \mathtt{prod}(l_\infty(x)) = i x_i,}{
-#' MAXPROD(x) = prod(l_\infty(x)) = i*x_i,} 
+#' MAXPROD(x) = prod(l_\infty(x)) = i*x_i,}
 #' where \eqn{MAXPROD} is the index proposed in (Kosmulski, 2007),
 #' see \code{\link{index_maxprod}}.
+#' Moreover, such index corresponds to the Shilkret integral
+#' of \eqn{x} w.r.t. some monotone measure,
+#' cf. (Gagolewski, Debski, Nowakiewicz, 2013).
 #'
 #' For the definition of the \eqn{l_p}-index for \eqn{p < \infty} we refer
 #' to (Gagolewski, Grzegorzewski, 2009a).
@@ -281,22 +331,30 @@ index.rp <- index_rp # deprecated
 #' @details
 #' The \eqn{l_p}-index, by definition, is not an impact function, as
 #' it produces 2 numeric values. Thus, it should be projected to one dimension.
-#' However, you may set  \code{projection} 
+#' However, you may set  \code{projection}
 #' to \code{\link{identity}} to obtain the 2-dimensional index
-#' 
-#' If non-increasingly sorted vector is given, the function is O(n).
-#' 
-#' For historical reasons, this function is also available via its alias, \code{index.lp}
-#'  [but its usage is deprecated].
+#'
+#' If non-increasingly sorted vector is given, the function is O(n)
+#' for any \eqn{p}, see (Gagolewski, Debski, Nowakiewicz, 2013).
+#'
+#' For historical reasons, this function is also available via its alias,
+#' \code{index.lp} [but its usage is deprecated].
 #'
 #' @references
-#' Gagolewski M., Grzegorzewski P., A geometric approach to the construction 
-#' of scientific impact indices, Scientometrics, 81(3), 2009a, pp. 617-634.\cr
-#' Gagolewski M., Debski M., Nowakiewicz M., Efficient algorithms for computing 
-#' ''geometric'' scientific impact indices, Research Report of 
-#' Systems Research Institute, Polish Academy of Sciences RB/1/2009, 2009b.\cr
+#' Gagolewski M., Grzegorzewski P., A geometric approach to the construction
+#' of scientific impact indices, \emph{Scientometrics} 81(3), 2009a, pp. 617-634.
+#'
+#' Gagolewski M., Debski M., Nowakiewicz M.,
+#'    \emph{Efficient Algorithm for Computing Certain Graph-Based Monotone
+#'    Integrals: the lp-Indices}, In: Mesiar R., Bacigal T. (Eds.),
+#'    \emph{Proc. Uncertainty Modelling}, STU Bratislava,
+#'    ISBN:978-80-227-4067-8, 2013, pp. 17-23.
+#'
 #' Kosmulski M., MAXPROD - A new index for assessment of the scientific output
-#'  of an individual, and a comparison with the h-index, Cybermetrics, 11(1), 2007.\cr
+#'  of an individual, and a comparison with the h-index, \emph{Cybermetrics} 11(1), 2007.
+#'
+#'  Shilkret, N., Maxitive measure and integration,
+#'    \emph{Indag. Math.} 33, 1971, pp. 109-116.
 #'
 #' @param x a non-negative numeric vector
 #' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).
@@ -321,7 +379,3 @@ index_lp <- function(x, p=Inf, projection=prod)
 #' @usage index.lp(x, p = Inf, projection = prod)  # deprecated alias
 #' @export
 index.lp <- index_lp # deprecated
-
-
-
-
