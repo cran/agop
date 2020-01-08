@@ -1,6 +1,13 @@
                           ** agop package NEWS **
 ***************************************************************************
 
+0.2-3 /2020-01-06/
+
+* [BUGFIX, #8] PROTECTing unprotected variables are reported by rchk.
+
+
+***************************************************************************
+
 0.2-2 /2019-03-05/
 
 * [IMPORTANT CHANGE] All functions dealing with binary relations now are
@@ -31,18 +38,19 @@
 * [NEW FUNCTION] `check_comonotonicity()` determines if two vectors are
    comonotonic.
 
-* [NEW FUNCTIONS] `pord_spread()`, `pord_spreadsym()`, `pord_nd()` --
-   exemplary preorders on sets of vectors.
+* [NEW FUNCTIONS] `pord_spread()`, `pord_spreadsym()`, `pord_nd()` -
+   example preorders on sets of vectors.
 
 * [NEW FEATURE] `plot_producer()` gained a new argument: `a`.
 
-* [BUGFIX] `rel_closure_transitive()` -- a resulting matrix
+* [BUGFIX] `rel_closure_transitive()` - a resulting matrix
    was not necessarily transitive.
 
 * [BUGFIX] `prepare_arg_numeric_sorted` (internal, C++) did not sort
    some vectors.
 
-* [BUGFIX] All built-in agops now throw an error on empty vectors.
+* [BUGFIX] All built-in aggregation functions now throw an error
+   on empty vectors.
 
 * [INFO] The package no longer depends on the `Matrix` package.
     The `igraph` package is only suggested.
