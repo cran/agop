@@ -1,22 +1,21 @@
 /* ************************************************************************* *
- *   This file is part of the `agop` library.                                *
+ * This file is part of the 'agop' library.                                  *
  *                                                                           *
- *   Copyright 2013-2019 Marek Gagolewski, Anna Cena                         *
+ * Copyleft (c) 2013-2023, Marek Gagolewski <https://www.gagolewski.com/>    *
  *                                                                           *
- *   Parts of the code are taken from the 'CITAN' R package by M. Gagolewski *
  *                                                                           *
- *   'agop' is free software: you can redistribute it and/or modify          *
- *   it under the terms of the GNU Lesser General Public License             *
- *   as published by the Free Software Foundation, either version 3          *
- *   of the License, or (at your option) any later version.                  *
+ * 'agop' is free software: you can redistribute it and/or modify it under   *
+ * the terms of the GNU Lesser General Public License as published by        *
+ * the Free Software Foundation, either version 3 of the License, or         *
+ * (at your option) any later version.                                       *
  *                                                                           *
- *   'agop' is distributed in the hope that it will be useful,               *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
- *   GNU Lesser General Public License for more details.                     *
+ * 'agop' is distributed in the hope that it will be useful,                 *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of            *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the              *
+ * GNU Lesser General Public License for more details.                       *
  *                                                                           *
- *   You should have received a copy of the GNU Lesser General Public        *
- *   License along with 'agop'. If not, see <http://www.gnu.org/licenses/>.  *
+ * A copy of the GNU Lesser General Public License can be downloaded         *
+ * from <http://www.gnu.org/licenses/>.                                      *
  * ************************************************************************* */
 
 
@@ -81,8 +80,8 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
          return vector_NA_double(n);
       }
 
-      if (vs <= 0) Rf_error(MSG__ARG_NOT_GT_A, "s", 0);
-      if (vk <= 0) Rf_error(MSG__ARG_NOT_GT_A, "k", 0);
+      if (vs <= 0) Rf_error(MSG__ARG_NOT_GT_A, "s", 0.0);
+      if (vk <= 0) Rf_error(MSG__ARG_NOT_GT_A, "k", 0.0);
 
       SEXP ret;
       PROTECT(ret = Rf_allocVector(REALSXP, n));
@@ -115,9 +114,9 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
       if ((bool)ptail[0]) {
          for (R_len_t i=0; i<n; i++) {
             if (!ISNA(ps[i%ns]) && ps[i%ns] <= 0.0)
-               Rf_error(MSG__ARG_NOT_GT_A, "s", 0);
+               Rf_error(MSG__ARG_NOT_GT_A, "s", 0.0);
             if (!ISNA(pk[i%nk]) && pk[i%nk] <= 0.0)
-               Rf_error(MSG__ARG_NOT_GT_A, "k", 0);
+               Rf_error(MSG__ARG_NOT_GT_A, "k", 0.0);
 
             pret[i] = (ISNA(pq[i%nq]) || ISNA(ps[i%ns]) || ISNA(pk[i%nk]))?NA_REAL:
                ((pq[i%nq]>0)
@@ -128,9 +127,9 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
       else {
          for (R_len_t i=0; i<n; i++) {
             if (!ISNA(ps[i%ns]) && ps[i%ns] <= 0.0)
-               Rf_error(MSG__ARG_NOT_GT_A, "s", 0);
+               Rf_error(MSG__ARG_NOT_GT_A, "s", 0.0);
             if (!ISNA(pk[i%nk]) && pk[i%nk] <= 0.0)
-               Rf_error(MSG__ARG_NOT_GT_A, "k", 0);
+               Rf_error(MSG__ARG_NOT_GT_A, "k", 0.0);
 
             pret[i] = (ISNA(pq[i%nq]) || ISNA(ps[i%ns]) || ISNA(pk[i%nk]))?NA_REAL:
                ((pq[i%nq])
